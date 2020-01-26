@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jbpc.Common.ExcelProxy", "Jbpc.Common.ExcelProxy\Jbpc.Common.ExcelProxy.csproj", "{24876F22-643E-4646-9AB5-76BD2EBC5979}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24876F22-643E-4646-9AB5-76BD2EBC5979}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24876F22-643E-4646-9AB5-76BD2EBC5979}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24876F22-643E-4646-9AB5-76BD2EBC5979}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24876F22-643E-4646-9AB5-76BD2EBC5979}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BC680683-A6FE-472E-B032-CAB7BFA97A7B}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB64F2F1-F76C-4FEC-B4B2-A065236686CE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jbpc.Common.Excel</RootNamespace>
+    <AssemblyName>Jbpc.Common.Excel</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Excel\Etc\ExcelConstants.cs" />
+    <Compile Include="Excel\Etc\FormatException.cs" />
+    <Compile Include="Excel\Etc\FormatStackTrace.cs" />
+    <Compile Include="Excel\Extension Methods\Range.cs" />
+    <Compile Include="Excel\Extension Methods\RangeCellOffsets.cs" />
+    <Compile Include="Excel\Extension Methods\Workbook.cs" />
+    <Compile Include="Excel\Extension Methods\Worksheet.cs" />
+    <Compile Include="Excel\Proxies\Abstract\IApplication.cs" />
+    <Compile Include="Excel\Proxies\Abstract\IWorkbook.cs" />
+    <Compile Include="Excel\Proxies\Abstract\IWorksheet.cs" />
+    <Compile Include="Excel\Proxies\ApplicationProxy.cs" />
+    <Compile Include="Excel\Proxies\ExcelOperationsProxy.cs" />
+    <Compile Include="Excel\Proxies\WorkbookProxy.cs" />
+    <Compile Include="Excel\Proxies\WorksheetProxy.cs" />
+    <Compile Include="Excel\Weak Reference\ExcelWorkbookWeakReference.cs" />
+    <Compile Include="Excel\Weak Reference\ExcelWorkbookWeakReferenceFactory.cs" />
+    <Compile Include="Excel\Excel Report\ExcelOperations.cs" />
+    <Compile Include="Excel\Excel Report\KillExcelProcess.cs" />
+    <Compile Include="Excel\Excel Report\OfficeApplication.cs" />
+    <Compile Include="Excel\Excel Report\PerformOperationWithRecovery.cs" />
+    <Compile Include="Excel\Excel Report\TemplateWorkbookDirectory.cs" />
+    <Compile Include="Excel\Utilities\WorksheetDatatable.cs" />
+    <Compile Include="Excel\Utilities\WorksheetUsedRange.cs" />
+    <Compile Include="Excel\Utilities\Extract Worksheet Values\WorksheetValues.cs" />
+    <Compile Include="Excel\Utilities\CellAddress.cs" />
+    <Compile Include="Excel\Utilities\WorksheetNames.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\blue_clip_board_16_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_folder_16_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sash_to_left_close_32_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sash_to_left_open_32_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
