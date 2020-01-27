@@ -2,6 +2,6 @@
 {
     public static class ExcelOperationsProxy
     {
-        public static IWorkbook NewWorkbook => new WorkbookProxy(ExcelOperations.NewWorkbook);
+        public static IWorkbook NewWorkbook => ExcelOperations.NewWorkbook;
     }
 }

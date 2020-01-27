@@ -10,6 +10,6 @@ namespace Jbpc.Common.Excel.Proxies.Proxies
         {
             this.application = application;
         }
-        public IWorkbook NewWorkbook => new WorkbookProxy(ExcelOperations.NewWorkbook);
+        public IWorkbook NewWorkbook => ExcelOperations.NewWorkbook;
     }
 }

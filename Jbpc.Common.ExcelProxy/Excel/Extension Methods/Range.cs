@@ -105,8 +105,7 @@ namespace Jbpc.Common.Excel.ExtensionMethods
 
             return newRange;
         }
-        public static Range DisplaceAndResize(this Range range, int displaceRows, int displaceColumns = 0,
-            int rowHeight = 1, int colWidth = 1)
+        public static Range DisplaceAndResize(this Range range, int displaceRows, int displaceColumns = 0, int rowHeight = 1, int colWidth = 1)
         {
             var msg1 = range.A1_A1();
 

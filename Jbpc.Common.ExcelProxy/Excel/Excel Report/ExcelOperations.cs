@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.IO;
+using Jbpc.Common.Excel.Proxies;
 
 namespace Jbpc.Common.Excel
 {
@@ -28,17 +29,17 @@ namespace Jbpc.Common.Excel
             }
         }
 
-        public static Workbook OpenWorkbook(string workbookFilename, bool readOnly = true)
+        public static IWorkbook OpenWorkbook(string workbookFilename, bool readOnly = true)
         {
             if (!File.Exists(workbookFilename))
             {
                 throw new ApplicationException($"Open workbook - workbook not specified: {workbookFilename}");
             }
-            return OpenWorkbookWithRetry(workbookFilename,  readOnly: readOnly);
+            return OpenWorkbookWithRetry(workbookFilename, readOnly: readOnly);
 
         }
-        public static Workbook NewWorkbook => ExcelApplication.Workbooks.Add();
-        public static Workbook OpenReportWorkbook(string templateName)
+        public static IWorkbook NewWorkbook => new WorkbookProxy(ExcelApplication.Workbooks.Add());
+        public static IWorkbook OpenReportWorkbook(string templateName)
         {
 
             if (templateName == null)
@@ -55,13 +56,13 @@ namespace Jbpc.Common.Excel
 
             return OpenWorkbookWithRetry(workbookFilename);
         }
-        public static Workbook OpenWorkbookWithRetry(string path, bool closeThenReopen = false, bool readOnly = true)
+        public static IWorkbook OpenWorkbookWithRetry(string path, bool closeThenReopen = false, bool readOnly = true)
         {
             var workbook = GetAlreadyOpenedWorkbook(path);
 
             if (workbook != null && !closeThenReopen)
             {
-                return workbook;
+                return new WorkbookProxy(workbook); 
             }
 
             PerformOperationWithRecovery.PerformOperation(() =>
@@ -77,11 +78,11 @@ namespace Jbpc.Common.Excel
                     throw new ApplicationException($"Failed to open workbook=\"{path}\"");
                 }
             });
-            return workbook;
+            return new WorkbookProxy(workbook);
         }
-        public static Workbook GetWorkbook(string workbookName, string path)
+        public static IWorkbook GetWorkbook(string workbookName, string path)
         {
-            Workbook workbook = null;
+            IWorkbook workbook = null;
 
             PerformOperationWithRecovery.PerformOperation(() =>
             {
@@ -89,7 +90,7 @@ namespace Jbpc.Common.Excel
 
                 try
                 {
-                    workbook = ExcelApplication.Workbooks.Open(path, ReadOnly: true);
+                    workbook = new WorkbookProxy(ExcelApplication.Workbooks.Open(path, ReadOnly: true)); 
                 }
                 catch (Exception)
                 {
@@ -126,4 +127,5 @@ namespace Jbpc.Common.Excel
         public static void DisplayAlerts(bool displayAlerts) => PerformOperationWithRecovery.PerformOperation(() => ExcelApplication.DisplayAlerts = displayAlerts);
 
     }
+
 }

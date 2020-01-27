@@ -16,5 +16,7 @@ namespace Jbpc.Common.Excel.Proxies
             get => worksheet.Name;
             set => worksheet.Name = value;
         }
+        public IRange RangeForCell(int nthRow, int nthCol) => new RangeProxy(worksheet.Cells[nthRow, nthCol] as Range);
+        public IRange UsedRange() => new RangeProxy(worksheet.UsedRange);
     }
 }

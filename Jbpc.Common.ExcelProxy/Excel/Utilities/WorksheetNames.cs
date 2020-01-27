@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Jbpc.Common.Excel.ExtensionMethods;
 
 namespace Jbpc.Common.Excel
 {
@@ -14,7 +13,7 @@ namespace Jbpc.Common.Excel
             }
             var workbook = ExcelOperations.OpenWorkbookWithRetry(workbookFilename);
 
-            return workbook.WorksheetNames();
+            return workbook.WorksheetNames;
         }
     }
 }

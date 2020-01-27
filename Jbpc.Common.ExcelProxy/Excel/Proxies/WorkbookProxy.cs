@@ -13,6 +13,7 @@ namespace Jbpc.Common.Excel.Proxies
         {
             this.workbook = workbook;
         }
+        public IWorksheet GetWorksheet(string name) => new WorksheetProxy(workbook.GetWorksheet(name));
         public List<string> WorksheetNames => workbook.WorksheetNames();
         public List<IWorksheet> Worksheets => workbook.WorksheetsList().Select(x=> new WorksheetProxy(x)).Cast<IWorksheet>().ToList();
     }

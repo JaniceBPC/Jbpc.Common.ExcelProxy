@@ -7,5 +7,6 @@ namespace Jbpc.Common.Excel.Proxies
     {
         List<string> WorksheetNames { get; }
         List<IWorksheet> Worksheets { get; }
+        IWorksheet GetWorksheet(string name);
     }
 }
