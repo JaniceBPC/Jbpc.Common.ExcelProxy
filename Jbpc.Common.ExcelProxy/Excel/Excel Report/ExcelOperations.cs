@@ -62,7 +62,7 @@ namespace Jbpc.Common.Excel
 
             if (workbook != null && !closeThenReopen)
             {
-                return new WorkbookProxy(workbook); 
+                return workbook; 
             }
 
             PerformOperationWithRecovery.PerformOperation(() =>
@@ -71,14 +71,16 @@ namespace Jbpc.Common.Excel
 
                 try
                 {
-                    workbook = ExcelApplication.Workbooks.Open(path, readOnly);
+                    var xlWorkbook = ExcelApplication.Workbooks.Open(path, readOnly);
+
+                    workbook = new WorkbookProxy(xlWorkbook);
                 }
                 catch (Exception)
                 {
                     throw new ApplicationException($"Failed to open workbook=\"{path}\"");
                 }
             });
-            return new WorkbookProxy(workbook);
+            return workbook;
         }
         public static IWorkbook GetWorkbook(string workbookName, string path)
         {
@@ -110,14 +112,16 @@ namespace Jbpc.Common.Excel
         {
             return GetAlreadyOpenedWorkbook(WorkbookName(workbookName)) != null;
         }
-        public static Workbook GetAlreadyOpenedWorkbook(string path)
+        public static IWorkbook GetAlreadyOpenedWorkbook(string path)
         {
             string workbookName = WorkbookName(path);
 
             foreach (Workbook each in ExcelApplication.Workbooks)
             {
                 if (each.Name == workbookName)
-                    return each;
+                {
+                    return new WorkbookProxy(each);
+                }
             }
 
             return null;

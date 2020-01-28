@@ -12,8 +12,8 @@ namespace Jbpc.Common.Excel
 
                 if (range.Row != 1 || range.Column != 1)
                 {
-                    var newRows = range.Row - 1 + range.Rows.Count;
-                    var newCols = range.Column - 1 + range.Columns.Count;
+                    var newRows = range.Row - 1 + range.RowCount;
+                    var newCols = range.Column - 1 + range.ColumnCount;
 
                     range = range.DisplaceAndResize(-range.Row + 1, -range.Column + 1, newRows, newCols);
                 }

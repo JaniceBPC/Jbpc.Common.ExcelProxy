@@ -1,10 +1,13 @@
 ﻿using Jbpc.Common.Excel.ExtensionMethods;
 using Microsoft.Office.Interop.Excel;
+//using System.Reactive.Disposables;
 
 namespace Jbpc.Common.Excel.Proxies
 {
     public class RangeProxy : IRange
     {
+        //private CompositeDisposable gg;
+
         private readonly Range range;
         public RangeProxy(Range range)
         {
@@ -48,11 +51,24 @@ namespace Jbpc.Common.Excel.Proxies
 
         public IRange Resize(int rowHeight = 1, int colWidth = 1) => new RangeProxy(range.Resize(rowHeight, colWidth));
 
-        public IRange DisplaceAndResize(int displaceRows, int displaceColumns = 0, int rowHeight = 1, int colWidth = 1) => new RangeProxy(range.DisplaceAndResize(displaceRows, displaceColumns, rowHeight, colWidth));
+        public IRange DisplaceAndResize(int displaceRows, int displaceColumns = 0, int rowHeight = 1, int colWidth = 1) =>
+            new RangeProxy(range.DisplaceAndResize(displaceRows, displaceColumns, rowHeight, colWidth));
 
         public void CloseWorkbook() => range.CloseWorkbook();
 
         public IRange SetHeadingColumnName(string text, int? columnWidth = null, int orientation = 0) => new RangeProxy(range.SetHeadingColumnName(text, columnWidth, orientation));
+        public int Row => range.Row;
+        public int Column => range.Column;
+        public int I => range.Column;
+        public IRange Rows => new RangeProxy(range.Rows);
+        public IRange Columns => new RangeProxy(range.Columns);
+        public int RowCount => range.Rows.Count;
+        public int ColumnCount => range.Columns.Count;
+        public object Value2
+        {
+            get => range.Value2;
+            set => range.Value2 = value;
+        }
 
     }
 }

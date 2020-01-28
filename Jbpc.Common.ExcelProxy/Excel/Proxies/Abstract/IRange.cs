@@ -1,6 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-
-namespace Jbpc.Common.Excel.Proxies
+﻿namespace Jbpc.Common.Excel.Proxies
 {
     public interface IRange
     {
@@ -23,5 +21,12 @@ namespace Jbpc.Common.Excel.Proxies
         IRange DisplaceAndResize(int displaceRows, int displaceColumns = 0, int rowHeight = 1, int colWidth = 1);
         void CloseWorkbook();
         IRange SetHeadingColumnName(string text, int? columnWidth = null, int orientation = 0);
+        int Row { get; }
+        int Column { get; }
+        int RowCount { get; }
+        int ColumnCount { get; }
+        IRange Rows { get; }
+        IRange Columns { get; }
+        object Value2 { get; set; }
     }
 }
