@@ -8,26 +8,31 @@ namespace Jbpc.Common.Excel
     public static class TemplateWorkbookDirectory
     {
         private static string TemplateReportsDirectoryName = "Template Reports";
-        private static string TemplateReportsDirectory(string path)
+        private static string TemplateReportsDirectory(DirectoryInfo directoryInfo)
         {
-            var initialPath = path;
+            var initialDirectory = directoryInfo;
 
-            while (new DirectoryInfo(path).Exists)
+            while (directoryInfo.Exists)
             {
-                var folderNames = new DirectoryInfo(path).GetDirectories().Select(x=> x.Name).ToList();
+                var folderNames = directoryInfo.GetDirectories().Select(x=> x.Name).ToList();
 
                 if (folderNames.Contains(TemplateReportsDirectoryName))
                 {
-                    return Path.Combine(path, TemplateReportsDirectoryName);
+                    return Path.Combine(directoryInfo.FullName, TemplateReportsDirectoryName);
                 }
 
-                path = new DirectoryInfo(path).Parent?.FullName ?? "";
+                if (directoryInfo.Parent == null)
+                {
+                    throw new ApplicationException($"TemplateReports directory \"{TemplateReportsDirectoryName}\" not found in path: \"{initialDirectory.FullName}\"");
+                }
+                directoryInfo = directoryInfo.Parent;
             }
-            throw new ApplicationException($"TemplateReports directory \"{TemplateReportsDirectoryName}\" not found in path: \"{initialPath}\"");
+            throw new ApplicationException($"TemplateReports directory \"{TemplateReportsDirectoryName}\" not found in path: \"{initialDirectory.FullName}\"");
         }
         public static string PathName()
         {
             var entryAssembly = Assembly.GetEntryAssembly();
+
 
             if (entryAssembly == null)
             {
@@ -35,12 +40,15 @@ namespace Jbpc.Common.Excel
             }
             var fileInfo = new FileInfo(entryAssembly.Location);
 
-            var codeBase = typeof(TemplateWorkbookDirectory).Assembly.CodeBase;
+            var originalAssemblyPath= typeof(TemplateWorkbookDirectory).Assembly.CodeBase;
 
-            var uri = new UriBuilder(codeBase);
-            var path = Uri.UnescapeDataString(uri.Path);
+            originalAssemblyPath = Uri.UnescapeDataString(new UriBuilder(originalAssemblyPath).Path);
 
-            return TemplateReportsDirectory(fileInfo.DirectoryName);
+            var directory = Path.GetDirectoryName(originalAssemblyPath) ?? originalAssemblyPath;
+
+            Console.WriteLine($"Entry assembly original path={originalAssemblyPath}, directory={directory}");
+
+            return TemplateReportsDirectory(new DirectoryInfo(directory));
         }
     }
 }
